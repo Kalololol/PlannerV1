@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Components.Web;
 using Planner.Data;
 using Planner.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-
+using MediatR;
+using Planner.Application.Mediator;
+using Planner.Infrastructure.ContainerConfigurations.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     option => option.UseSqlServer(builder.Configuration.GetConnectionString("PlanowaniePracyConnectionStrings"))
     );
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddMediatR(typeof(MediatorConfiguration).Assembly);
+builder.Services.AddSingleton(AutoMapperConfig.Initialize());
 
 var app = builder.Build();
 

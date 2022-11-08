@@ -21,7 +21,8 @@ builder.Services.AddSingleton(AutoMapperConfig.Initialize());
 
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(typeof(Program));
 
 
 

@@ -1,4 +1,7 @@
 ﻿@page "/"
+@inject MediatR.IMediator _mediator
+@using Planner.Application.Service.Queries
+@using Planner.Application.ViewModels
 
 <PageTitle>Index</PageTitle>
 
@@ -6,4 +9,29 @@
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<ul>
+    @foreach(var e in employees)
+    {
+        <li>@e.Name @e.Surname @e.LicenseNumber @e.PhoneNumber</li>
+
+    }
+</ul>
+
+<form action="*">
+<textarea name="texarea"></textarea>
+</form>
+
+
+@code {
+    List<EmployeeViewModel> employees;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await _mediator.Send(new GetEmployeesQuery());
+
+    }
+
+}
+
+

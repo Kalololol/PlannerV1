@@ -6,7 +6,7 @@ using Planner.Domain.Entities;
 
 namespace Planner.Application.Service.Queries
 {
-    public class GetEmployeesQueryHandler : RequestHandler<GetEmployeesQuery, List<EmployeeViewModel>>
+    public class GetEmployeesQueryHandler : IRequestHandler<GetEmployeesQuery, List<EmployeeViewModel>>
     {
 
         private readonly IRepository<Employee> _employeeRepository;
@@ -18,10 +18,25 @@ namespace Planner.Application.Service.Queries
             _mapper = mapper;
         }
 
-        protected override List<EmployeeViewModel> Handle(GetEmployeesQuery request)
+        public Task<List<EmployeeViewModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
         {
-            var employees = _employeeRepository.GetAll().ToList();
-            var employeeViewModel = new List<EmployeeViewModel>();
+            var employees = _employeeRepository.GetAll();
+            List<EmployeeViewModel> result = new List<EmployeeViewModel>();
+
+            foreach(var i in employees)
+            {
+                var employee = _mapper.Map<EmployeeViewModel>(i);
+                result.Add(employee);
+            }
+
+            return Task.FromResult(result);
+        }
+
+       /* RequestHandler zaminiełem na IRequestHandler
+        * protected override List<EmployeeViewModel> Handle(GetEmployeesQuery request)
+        {
+            var employees = _employeeRepository.GetAll();
+            var employeeViewModel= new List<EmployeeViewModel>();
 
             foreach(var employee in employees)
             {
@@ -30,6 +45,6 @@ namespace Planner.Application.Service.Queries
             }
 
             return employeeViewModel;
-        }
+        }*/
     }
 }

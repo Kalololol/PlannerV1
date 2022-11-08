@@ -29,6 +29,10 @@ namespace Planner.WebMVC.Controllers
         public IActionResult Employees()
         {
             var employees = _mediator.Send(new GetEmployeesQuery());
+                  
+          
+           // _mapper.Map<EmployeeViewModel>(employees);
+
             return View(employees);
         }
 
@@ -36,7 +40,10 @@ namespace Planner.WebMVC.Controllers
         // GET: EmployeeController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            id = 1;
+            var employee = _mediator.Send(new GetEmployeeByIdQuery { Id = id });
+
+            return View(employee);
         }
 
         // GET: EmployeeController/Create
