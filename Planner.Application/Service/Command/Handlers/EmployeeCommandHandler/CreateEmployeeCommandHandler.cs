@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using Planner.Application.ViewModels;
 using Planner.Data.Repositories;
 using Planner.Domain.Entities;
 
@@ -6,16 +8,19 @@ namespace Planner.Application.Service.Command
 {
     public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, Unit>
     {
-        private readonly IRepository<Employee> _employeRepository;
+        private readonly IRepository<Employee> _employeeRepository;
+        private readonly IMapper _mapper;
 
-        public CreateEmployeeCommandHandler(IRepository<Employee> employeRepository)
+        public CreateEmployeeCommandHandler(IRepository<Employee> employeeRepository, IMapper mapper)
         {
-            _employeRepository = employeRepository;
+            _employeeRepository = employeeRepository;
+            _mapper = mapper;
         }
 
-        Task<Unit> IRequestHandler<CreateEmployeeCommand, Unit>.Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            var employee = new Employee()
+
+            var employee = new EmployeeViewModel()
             {
                 Name = request.Name,
                 Surname = request.Surname,
@@ -25,11 +30,11 @@ namespace Planner.Application.Service.Command
                 Password = request.Password,
                 ActiveAccount = true,
             };
-
-            _employeRepository.Add(employee);
+            var result = _mapper.Map<Employee>(employee);
+            _employeeRepository.Add(result);
 
             return Task.FromResult(Unit.Value);
-
         }
     }
 }
+

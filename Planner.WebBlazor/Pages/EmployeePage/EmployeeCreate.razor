@@ -1,0 +1,73 @@
+﻿@page "/employeecreate"
+@inject MediatR.IMediator _mediator
+@using Planner.Application.ViewModels
+@using System.ComponentModel.DataAnnotations
+@using Planner.WebBlazor.Models
+
+
+<PageTitle>SPG - dodawanie pracownika</PageTitle>
+
+<h3>Dodaj nowego pracownika</h3>
+
+
+<EditForm Model="employee" OnValidSubmit="ValidFormSubmitted" >
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+
+    <div class="form-group col-md-4">
+    <label for="name" class="form-label">Imię:</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="imię" @bind-value="employee.Name" required>
+    </div>
+    <br />
+    <div class="form-group col-md-4">
+    <label for="surname" class="form-label">Nazwisko:</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="nazwisko" @bind-value="employee.Surname" required>
+    </div>
+    <br />
+    <div class="form-group col-md-4">
+  <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" @bind-value="employee.AddressEmail" required>
+</div>
+<br />
+    <div class="form-group col-md-4">
+    <label for="phone" class="form-label">Telefon:</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="numer telefonu" @bind-value="employee.PhoneNumber" required>
+    </div>
+    <br />
+    <div class="form-group col-md-4">
+    <label for="licensenumber" class="form-label">Prawo wyk. zawodu:</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="numer prawa wyk. zawodu" @bind-value="employee.LicenseNumber" required>
+    </div>
+    <br />
+    <div class="form-group col-md-4">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">Hasło:</label>
+  </div>
+  <div class="col-auto">
+    <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="Hasło musi mieć od 8 do 20 znaków." @bind-value="employee.Password" required>
+  </div>
+</div>
+<br />
+
+  <button type="submit" class="btn btn-primary">Zatwierdź</button>
+    <button type="submit" class="btn btn-primary">Anuluj</button>
+
+</EditForm>
+
+
+
+
+@code {
+    CreateEmployee employee = new CreateEmployee();
+
+    private void ValidFormSubmitted()
+    {
+        
+    }
+    
+
+
+       
+
+}

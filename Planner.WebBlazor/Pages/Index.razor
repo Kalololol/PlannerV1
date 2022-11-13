@@ -1,35 +1,55 @@
 ﻿@page "/"
 @inject MediatR.IMediator _mediator
-@using Planner.Application.Service.Queries
 @using Planner.Application.ViewModels
+@using Planner.Application.Service.Queries
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<PageTitle>SPG - System planowania grafiku</PageTitle>
 
-Welcome to your new app.
+<h1>System planowania grafiku</h1>
 
-<ul>
+
+<p>
+    <table class="table">
+        <tr>
+            <th><a class="nav-link">Imię i Nazwisko</a></th>
+            <th><a class="nav-link">Prawo wyk. zawodu</a></th>
+            <th><a class="nav-link">Telefon</a></th>
+        </tr>
     @foreach(var e in employees)
     {
-        <li>@e.Name @e.Surname @e.LicenseNumber @e.PhoneNumber</li>
+        <tr>
+            <td><a href="@($"/employeedetails/{e.Id}")">@e.Name @e.Surname</a></td>
+            <td>@e.LicenseNumber</td>
+            <td>@e.PhoneNumber</td>
+
+            
+        </tr>
+   
 
     }
-</ul>
+    </table>
+</p>
 
-<form action="*">
-<textarea name="texarea"></textarea>
-</form>
+
+
+<div>
+    <a href="@($"/employeeall")">Pracownicy</a>
+</div>
+
+
+
 
 
 @code {
     List<EmployeeViewModel> employees;
-    
+     
 
     protected override async Task OnInitializedAsync()
     {
         employees = await _mediator.Send(new GetEmployeesQuery());
-
+        
+        
     }
 
 }

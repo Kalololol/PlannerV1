@@ -1,6 +1,10 @@
-﻿namespace Planner.Application.Service.Queries
+﻿using MediatR;
+using Planner.Application.ViewModels;
+
+namespace Planner.Application.Service.Queries
 {
-    public class GetContractByIdQuery
+    public class GetContractByIdQuery : IRequest <ContractViewModel> 
     {
+        public int Id { get; set; }
     }
 }

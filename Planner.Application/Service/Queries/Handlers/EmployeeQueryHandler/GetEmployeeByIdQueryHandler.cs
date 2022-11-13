@@ -19,7 +19,6 @@ namespace Planner.Application.Service.Queries
 
         public async Task<EmployeeViewModel> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
         {
-            request.Id = 1;
             var employee = _employeRepository.GetById(request.Id);
             var result = _mapper.Map<EmployeeViewModel>(employee);
 

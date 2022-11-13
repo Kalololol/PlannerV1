@@ -33,24 +33,11 @@ namespace Planner.Data.Migrations
                     b.Property<int>("ContractType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("DeclaredHours")
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -91,6 +78,9 @@ namespace Planner.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlanDayId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -100,9 +90,114 @@ namespace Planner.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PlanDayId");
+
                     b.HasIndex("WardId");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.Indisposition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Change")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DayIndisposition")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Indispositions");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DatePlanDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NameDay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlanMonthId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WardId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanMonthId");
+
+                    b.HasIndex("WardId");
+
+                    b.ToTable("PlanDays");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanMonth", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateMonth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateMonthBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WardId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WardId");
+
+                    b.ToTable("PlanMonths");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Change")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DayRequest")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Planner.Domain.Entities.Ward", b =>
@@ -135,15 +230,77 @@ namespace Planner.Data.Migrations
 
             modelBuilder.Entity("Planner.Domain.Entities.Employee", b =>
                 {
+                    b.HasOne("Planner.Domain.Entities.PlanDay", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("PlanDayId");
+
                     b.HasOne("Planner.Domain.Entities.Ward", null)
                         .WithMany("Employees")
                         .HasForeignKey("WardId");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.Indisposition", b =>
+                {
+                    b.HasOne("Planner.Domain.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanDay", b =>
+                {
+                    b.HasOne("Planner.Domain.Entities.PlanMonth", null)
+                        .WithMany("PlanDays")
+                        .HasForeignKey("PlanMonthId");
+
+                    b.HasOne("Planner.Domain.Entities.Ward", "Ward")
+                        .WithMany()
+                        .HasForeignKey("WardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanMonth", b =>
+                {
+                    b.HasOne("Planner.Domain.Entities.Ward", "Ward")
+                        .WithMany()
+                        .HasForeignKey("WardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.Request", b =>
+                {
+                    b.HasOne("Planner.Domain.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Planner.Domain.Entities.Employee", b =>
                 {
                     b.Navigation("Contract")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanDay", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Planner.Domain.Entities.PlanMonth", b =>
+                {
+                    b.Navigation("PlanDays");
                 });
 
             modelBuilder.Entity("Planner.Domain.Entities.Ward", b =>

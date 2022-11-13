@@ -1,0 +1,75 @@
+﻿@page "/employeeAdd"
+@inject AutoMapper.IMapper _mapper
+@inject MediatR.IMediator _mediator
+@using Planner.Application.ViewModels
+@using Planner.Application.Service.Command
+
+
+<PageTitle>SPG - Dodaj pracownika</PageTitle>
+
+<h3>Rejestracja nowego użytkownika:</h3>
+
+<table class="table">
+    <tr>
+        <td>Imię: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.Name"
+            @bind-value:event="oninput"/></td>
+    </tr>
+    <tr>
+        <td>Nazwisko: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.Surname"
+            @bind-value:event="oninput"/></td>
+    </tr>
+    <tr>
+        <td>Adres e-mail: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.AddressEmail"
+            @bind-value:event="oninput"/></td>
+    </tr>
+    <tr>
+        <td>Telefon kontaktowy: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.PhoneNumber"
+            @bind-value:event="oninput"/></td>
+    </tr>
+    <tr>
+        <td>Prawo wyk. zawodu: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.LicenseNumber"
+            @bind-value:event="oninput"/></td>
+    </tr>
+    <tr>
+        <td>Hasło: </td>
+        <td><input type="text"
+            @bind-value="@newEmployee.Password"
+            @bind-value:event="oninput"/></td>
+    </tr>
+        
+    <div>
+    <text>Imię:</text><input class="form-control" @bind-value="newEmployee.Name" /> 
+</div>
+
+
+</table>
+            
+
+
+
+@code {
+    EmployeeViewModel newEmployee = new EmployeeViewModel();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+      //  if (newEmployee != null)
+      //  {
+
+      //      _mediator.Send(new CreateEmployeeCommand());
+      //  }
+    }
+
+
+}

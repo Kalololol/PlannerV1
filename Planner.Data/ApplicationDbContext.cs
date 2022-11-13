@@ -17,6 +17,10 @@ namespace Planner.Data
         DbSet<Contract> Contracts { get; set; }
         DbSet<Employee> Employees { get; set; }
         DbSet<Ward> Wards { get; set; }
+        DbSet<Indisposition> Indispositions { get; set; }
+        DbSet<PlanDay> PlanDays { get; set; }
+        DbSet<PlanMonth> PlanMonths { get; set; }
+        DbSet<Request> Requests { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
