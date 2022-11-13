@@ -18,6 +18,10 @@ namespace Planner.Infrastructure.ContainerConfigurations.AutoMapper
                 cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
                 cfg.CreateMap<EmployeeViewModel, CreateEmployeeCommand>();
                 cfg.CreateMap<EmployeeViewModel, EditEmployeeCommand>();
+
+                cfg.CreateMap<Indisposition, IndispositionViewModel>().ReverseMap();
+                
+
             }).CreateMapper();
 
     }

@@ -3,7 +3,8 @@ using Planner.Application.ViewModels;
 
 namespace Planner.Application.Service.Queries
 {
-    public class GetPlanDaysQuery : IRequest<List<PlanDayViewModel>>
+    public class GetIndispositionByIdQuery : IRequest <IndispositionViewModel>
     {
+        public int Id { get; set; }
     }
 }

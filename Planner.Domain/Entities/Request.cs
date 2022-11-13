@@ -9,7 +9,6 @@ namespace Planner.Domain.Entities
     public class Request : Entity
     {
         public DateTime DayRequest { get; set; }
-
         public Shift Change { get; set; }
         public Employee Employee { get; set; }
         public int EmployeeId { get; set; }

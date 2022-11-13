@@ -1,8 +1,6 @@
-﻿using MediatR;
-
-namespace Planner.Application.Service.Command
+﻿namespace Planner.Application.ViewModels
 {
-    public class EditIndispositionCommand : IRequest
+    public class IndispositionViewModel
     {
         public int Id { get; set; }
         public DateTime DayIndisposition { get; set; }

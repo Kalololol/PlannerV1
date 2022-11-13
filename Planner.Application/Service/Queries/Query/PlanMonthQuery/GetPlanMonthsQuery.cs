@@ -1,6 +1,9 @@
-﻿namespace Planner.Application.Service.Queries
+﻿using MediatR;
+using Planner.Application.ViewModels;
+
+namespace Planner.Application.Service.Queries
 {
-    public class GetPlanMonthsQuery
+    public class GetPlanMonthsQuery : IRequest<List<PlanMonthViewModel>>
     {
     }
 }

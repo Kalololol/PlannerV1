@@ -18,7 +18,7 @@ namespace Planner.Application.Service.Queries
             _mapper = mapper;
         }
 
-        public Task<List<EmployeeViewModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
+        public async Task<List<EmployeeViewModel>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
         {
             var employees = _employeeRepository.GetAll();
             List<EmployeeViewModel> result = new List<EmployeeViewModel>();
@@ -29,7 +29,8 @@ namespace Planner.Application.Service.Queries
                 result.Add(employee);
             }
 
-            return Task.FromResult(result);
+            return result;
+           // return Task.FromResult(result);
         }
 
        /* RequestHandler zaminiełem na IRequestHandler

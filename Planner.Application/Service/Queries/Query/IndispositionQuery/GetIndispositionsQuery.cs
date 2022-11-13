@@ -1,6 +1,9 @@
-﻿namespace Planner.Application.Service.Queries
+﻿using MediatR;
+using Planner.Application.ViewModels;
+
+namespace Planner.Application.Service.Queries
 {
-    public class GetIndispositionsQuery
+    public class GetIndispositionsQuery : IRequest<List<IndispositionViewModel>>
     {
     }
 }
