@@ -38,7 +38,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private DetailsEmployee employee;
+    private EditDetailsEmployee employee;
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,7 +46,7 @@
 
         var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
 
-        employee = _mapper.Map<DetailsEmployee>(empl);
+        employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
     private async Task EditEmployee()

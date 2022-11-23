@@ -14,8 +14,8 @@ namespace Planner.WebBlazor
                cfg.CreateMap<CreateEmployee, EmployeeViewModel>().ReverseMap();
                cfg.CreateMap<CreateEmployee, CreateEmployeeCommand>().ReverseMap();
                cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
-               cfg.CreateMap<EmployeeViewModel, DetailsEmployee>().ReverseMap();
-               cfg.CreateMap<EditEmployeeCommand, DetailsEmployee>().ReverseMap();
+               cfg.CreateMap<EmployeeViewModel, EditDetailsEmployee>().ReverseMap();
+               cfg.CreateMap<EditEmployeeCommand, EditDetailsEmployee>().ReverseMap();
 
 
            }).CreateMapper();

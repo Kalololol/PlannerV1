@@ -1,6 +1,6 @@
 ﻿namespace Planner.WebBlazor.Models
 {
-    public class DetailsEmployee
+    public class EditDetailsEmployee
     {
         public int? Id { get; set; }
         public string? Name { get; set; }
@@ -10,7 +10,7 @@
         public string? LicenseNumber { get; set; }
         public string? Password { get; set; }
 
-        public DetailsEmployee(){}
+        public EditDetailsEmployee(){}
 
 
     }
