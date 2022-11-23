@@ -14,6 +14,7 @@ namespace Planner.Application.ViewModels
         public string Password { get; set; }
         public bool ActiveAccount { get; set; }
 
-      
+        public EmployeeViewModel(){}
+
     }
 }

@@ -6,7 +6,7 @@
 
 <PageTitle>SPG - Pracownicy</PageTitle>
 
-<h3>Wszyscy pracownicy</h3>
+<p><h3>Wszyscy pracownicy</h3> <a href="@("/employeecreate")">Dodaj pracownika</a></p>
 
 <p>
     <table class="table">
@@ -23,16 +23,14 @@
             <td>@e.PhoneNumber</td>
 
             <button class="btn btn-primiary"><a href="@($"/employeedetails/{e.Id}")">Szczegóły</a></button>
-            
+            <button class="btn btn-primiary"><a href="@($"/employeeedit/{e.Id}")">Edycja</a></button>
+
         </tr>
    
 
     }
 
     <br />
-    <div>
-      <button type="submit" class="btn btn-primary"><a href="@("/employeecreate")">Dodaj nowego pracownika</a></button>
-      </div>
     </table>
 </p>
 

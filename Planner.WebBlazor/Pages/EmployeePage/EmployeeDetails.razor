@@ -1,5 +1,6 @@
 ﻿@page "/employeedetails/{id:int}"
 
+@inject AutoMapper.IMapper _mapper
 @inject MediatR.IMediator _mediator
 @using Planner.Application.ViewModels
 @using Planner.Application.Service.Queries
@@ -22,8 +23,10 @@
             <td>@employee.LicenseNumber</td>
             <td>@employee.PhoneNumber</td>
             <td>@employee.Password</td>
-
             
+            
+            <button class="btn btn-primiary"><a href="@($"/employeeedit/{employee.Id}")">Edycja</a></button>
+
         </tr>
         <br />
         <div>
@@ -40,20 +43,16 @@
     [Parameter]
     public int Id { get; set; }
 
-    private EmployeeViewModel employee;
-        List<EmployeeViewModel> employees;
+    private DetailsEmployee employee;
 
 
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        
-        employees = await _mediator.Send(new GetEmployeesQuery());
 
+        var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
 
-        employee = employees.FirstOrDefault(x => x.Id == this.Id);
-        
-        
+        employee = _mapper.Map<DetailsEmployee>(empl);
     }
 
 }

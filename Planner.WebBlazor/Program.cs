@@ -5,6 +5,7 @@ using Planner.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Planner.Application.Mediator;
+using System.Reflection;
 using Planner.Infrastructure.ContainerConfigurations.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddMediatR(typeof(MediatorConfiguration).Assembly);
+
 builder.Services.AddSingleton(AutoMapperConfig.Initialize());
+builder.Services.AddSingleton(Planner.WebBlazor.AutoMapperConfig.Initialize());
+//builder.Services.AddAutoMapper(AutoMapperConfig.Initialize());
 
 var app = builder.Build();
 

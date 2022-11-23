@@ -12,14 +12,16 @@ namespace Planner.Application.Service.Command
         public string LicenseNumber { get; set; }
         public string Password { get; set; }
 
-        public CreateEmployeeCommand(string name, string surname, string addressEmail, string phoneNumber, string licenseNumber, string password, bool activeAccount)
+        public CreateEmployeeCommand(){}
+
+        public CreateEmployeeCommand(string name, string surname, string addressEmail, string phoneNumber, string licenseNumber, string password)
         {
-            Name = name;
-            Surname = surname;
-            AddressEmail = addressEmail;
-            PhoneNumber = phoneNumber;
-            LicenseNumber = licenseNumber;
-            Password = password;
+            this.Name = name;
+            this.Surname = surname;
+            this.AddressEmail = addressEmail;
+            this.PhoneNumber = phoneNumber;
+            this.LicenseNumber = licenseNumber;
+            this.Password = password;
         }
     }
 }

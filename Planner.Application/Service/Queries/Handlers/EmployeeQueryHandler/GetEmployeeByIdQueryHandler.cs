@@ -23,7 +23,6 @@ namespace Planner.Application.Service.Queries
             var result = _mapper.Map<EmployeeViewModel>(employee);
 
 
-
             return result;
         }
 

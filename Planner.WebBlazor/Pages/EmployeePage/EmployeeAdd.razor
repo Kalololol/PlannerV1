@@ -1,5 +1,4 @@
 ﻿@page "/employeeAdd"
-@inject AutoMapper.IMapper _mapper
 @inject MediatR.IMediator _mediator
 @using Planner.Application.ViewModels
 @using Planner.Application.Service.Command
@@ -8,6 +7,8 @@
 <PageTitle>SPG - Dodaj pracownika</PageTitle>
 
 <h3>Rejestracja nowego użytkownika:</h3>
+
+
 
 <table class="table">
     <tr>
@@ -51,6 +52,7 @@
     <text>Imię:</text><input class="form-control" @bind-value="newEmployee.Name" /> 
 </div>
 
+<button class="btn btn-primary" @onclick="Send">Zapisz</button>
 
 </table>
             
@@ -60,16 +62,23 @@
 @code {
     EmployeeViewModel newEmployee = new EmployeeViewModel();
 
-
-
-    protected override async Task OnInitializedAsync()
+    private void Send()
     {
-      //  if (newEmployee != null)
-      //  {
+        if (newEmployee != null)
+        {
 
-      //      _mediator.Send(new CreateEmployeeCommand());
-      //  }
+           // _mediator.Send(new CreateEmployeeCommand(newEmployee));
+        }
     }
+
+   // protected override async Task OnInitializedAsync()
+    //{
+       // if (newEmployee != null)
+       // {
+
+       //     _mediator.Send(new CreateEmployeeCommand());
+        //}
+   // }
 
 
 }

@@ -2,11 +2,6 @@
 using Planner.Application.Service.Command;
 using Planner.Application.ViewModels;
 using Planner.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planner.Infrastructure.ContainerConfigurations.AutoMapper
 {
@@ -15,9 +10,13 @@ namespace Planner.Infrastructure.ContainerConfigurations.AutoMapper
         public static IMapper Initialize()
             => new MapperConfiguration(cfg =>
             {
+                // cfg.CreateMap<CreateEmployee, EmployeeViewModel>().ReverseMap();
                 cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
-                cfg.CreateMap<EmployeeViewModel, CreateEmployeeCommand>();
-                cfg.CreateMap<EmployeeViewModel, EditEmployeeCommand>();
+
+                cfg.CreateMap<EmployeeViewModel, CreateEmployeeCommand>().ReverseMap();
+                cfg.CreateMap<EmployeeViewModel, EditEmployeeCommand>().ReverseMap();
+               
+                
 
                 cfg.CreateMap<Indisposition, IndispositionViewModel>().ReverseMap();
                 

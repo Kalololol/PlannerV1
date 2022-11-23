@@ -10,6 +10,12 @@ namespace Planner.Application.Service.Command
         private readonly IRepository<Employee> _employeeRepository;
         private readonly IMapper _mapper;
 
+        public EditEmployeeCommandHandler(IRepository<Employee> employeeRepository, IMapper mapper)
+        {
+            _employeeRepository = employeeRepository;
+            _mapper = mapper;
+        }
+
         public Task<Unit> Handle(EditEmployeeCommand request, CancellationToken cancellationToken)
         {
             var employee = _employeeRepository.GetById(request.Id);

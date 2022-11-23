@@ -25,27 +25,15 @@ namespace Planner.Application.Service.Queries
 
             foreach(var i in employees)
             {
+
                 var employee = _mapper.Map<EmployeeViewModel>(i);
                 result.Add(employee);
             }
 
+            
             return result;
-           // return Task.FromResult(result);
         }
 
-       /* RequestHandler zaminiełem na IRequestHandler
-        * protected override List<EmployeeViewModel> Handle(GetEmployeesQuery request)
-        {
-            var employees = _employeeRepository.GetAll();
-            var employeeViewModel= new List<EmployeeViewModel>();
-
-            foreach(var employee in employees)
-            {
-                var employeeVM = _mapper.Map<EmployeeViewModel>(employee);
-                employeeViewModel.Add(employeeVM);
-            }
-
-            return employeeViewModel;
-        }*/
+       
     }
 }

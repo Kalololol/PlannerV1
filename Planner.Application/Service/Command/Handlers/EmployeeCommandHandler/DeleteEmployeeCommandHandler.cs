@@ -6,7 +6,13 @@ namespace Planner.Application.Service.Command
 {
     public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeCommand, Unit>
     {
-        private readonly IRepository<Employee> _employeeRepository; 
+        private readonly IRepository<Employee> _employeeRepository;
+
+        public DeleteEmployeeCommandHandler(IRepository<Employee> employeeRepository)
+        {
+            _employeeRepository = employeeRepository;
+        }
+
         public Task<Unit> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
 

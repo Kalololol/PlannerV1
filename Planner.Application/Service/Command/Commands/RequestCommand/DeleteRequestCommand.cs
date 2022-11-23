@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Planner.Application.Service.Command.Commands.RequestCommand
+namespace Planner.Application.Service.Command
 {
     public class DeleteRequestCommand : IRequest
     {
