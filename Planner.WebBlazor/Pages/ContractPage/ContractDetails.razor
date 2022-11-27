@@ -1,0 +1,44 @@
+﻿@page "/contractDetails/{id:int}"
+@using Planner.Application.Service.Queries
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+
+<PageTitle>SPG - szczegóły pracownika</PageTitle>
+
+
+
+ <table class="table">
+        <tr>
+            <th><a class="nav-link">Zadeklarowane godziny:</a></th>
+            <th><a class="nav-link">Typ kontraktu: </a></th>
+
+        </tr>
+        <tr>
+            <td>@contract.DeclaredHours</td>
+            <td>@contract.ContractType</td>
+
+
+            
+            <button class="btn btn-primiary"><a href="@($"/contractEdit/{contract.Id}")">Edycja</a></button>
+
+        </tr>
+        <br /><a href="@($"/employeedetails/{contract.Id}")">Cofnij</a>
+       </table>
+   
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private DetailsContract contract;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        var input = await _mediator.Send(new GetContractByIdQuery(Id));
+
+        contract = _mapper.Map<DetailsContract>(input);
+    }
+}

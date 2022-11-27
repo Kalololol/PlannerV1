@@ -1,0 +1,19 @@
+﻿@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+
+@page "/contractCreate"
+@using Planner.Application.Service.Command
+
+<h3>ContractCreate</h3>
+
+@code {
+     private CreateContract contract = new CreateContract();
+
+
+    private async Task InsertEmployee()
+    {
+       
+        await _mediator.Send(_mapper.Map<CreateContractCommand>(contract));
+}
+}

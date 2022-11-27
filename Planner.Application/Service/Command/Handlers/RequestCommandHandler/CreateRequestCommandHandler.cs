@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Planner.Application.ViewModels;
 using Planner.Data.Repositories;
 using Planner.Domain.Entities;
 
@@ -18,7 +19,7 @@ namespace Planner.Application.Service.Command
 
         public Task<Unit> Handle(CreateRequestCommand request, CancellationToken cancellationToken)
         {
-            var req = new CreateRequestCommand()
+            var req = new RequestViewModel()
             {
                 DayRequest = request.DayRequest,
                 Change = request.Change,

@@ -1,0 +1,45 @@
+﻿@page "/indispositionAll"
+@using Planner.Application.Service.Queries
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+
+<PageTitle>SPG - Niedyspozyzcje</PageTitle>
+
+<p><h3>Niedyspozycje pracowników</h3></p>
+
+<p>
+    <table class="table">
+        <tr>
+            <th><a class="nav-link">Data</a></th>
+            <th><a class="nav-link">Zmiana</a></th>
+        </tr>
+        @foreach(var i in indispositions)
+        {
+            <tr>
+       
+            <td>@i.Change</td>
+
+            <button class="btn btn-primiary"><a href="@($"/indispositionEdit/{i.Id}")">Edycja</a></button>
+        </tr>
+        }
+        <br />
+    </table>
+</p>
+
+@code {
+    private List<AllIndisposition> indispositions = new List<AllIndisposition>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var input = await _mediator.Send(new GetIndispositionsQuery());
+        foreach(var i in indispositions)
+        {
+            var indisposition = _mapper.Map<AllIndisposition>(i);
+            
+            indispositions.Add(indisposition);
+        }
+    }
+}
+
+

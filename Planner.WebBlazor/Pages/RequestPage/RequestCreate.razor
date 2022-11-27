@@ -1,0 +1,23 @@
+﻿@page "/requestcreate"
+@using Planner.Application.Service.Command
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+<h3>RequestAdd</h3>
+
+
+
+
+
+@code {
+    private CreateRequest request = new CreateRequest();
+
+
+    private async Task InsertEmployee()
+    {
+       
+        await _mediator.Send(_mapper.Map<CreateRequestCommand>(request));
+    
+    }
+
+}

@@ -31,8 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
-    <Folder Include="Pages\ContractPage\" />
-    <Folder Include="Pages\IndispositionPage\" />
     <Folder Include="Pages\PlanMonthPage\" />
     <Folder Include="Pages\PlanDayPage\" />
   </ItemGroup>

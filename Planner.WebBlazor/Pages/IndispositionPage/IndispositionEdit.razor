@@ -1,0 +1,39 @@
+﻿@page "/indispositionEdit/{id:int}"
+@using Planner.Application.Service.Command
+@using Planner.Application.Service.Queries
+@inject AutoMapper.IMapper _mapper
+@inject MediatR.IMediator _mediator
+
+
+
+<h3>IndispositionEdit</h3>
+<EditForm Model="@indisposition" OnValidSubmit="@OnInitializedAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <td>Data: </td>
+    <br/>
+    <button type="submit" @onclick="EditIndisposition">Zatwierdź zmiany</button>
+
+    </EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private EditIndisposition indisposition;
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        var input = await _mediator.Send(new GetIndispositionByIdQuery(Id));
+
+        indisposition = _mapper.Map<EditIndisposition>(input);
+    }
+
+    private async Task EditIndisposition()
+    {
+        await _mediator.Send(_mapper.Map<EditIndispositionCommand>(indisposition));
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Planner.Application.ViewModels;
 using Planner.Data.Repositories;
 using Planner.Domain.Entities;
 
@@ -18,7 +19,8 @@ namespace Planner.Application.Service.Command
 
         public Task<Unit> Handle(CreateIndispositionCommand request, CancellationToken cancellationToken)
         {
-            var indisposition = new CreateIndispositionCommand()
+            //var indisposition = new CreateIndispositionCommand()
+            var indisposition = new IndispositionViewModel()
             {
                 DayIndisposition = request.DayIndisposition,
                 Change = request.Change,

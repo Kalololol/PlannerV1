@@ -1,0 +1,31 @@
+﻿@page "/requestedit/{id:int}"
+@using Planner.Application.Service.Command
+@using Planner.Application.Service.Queries
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+<h3>RequestEdit</h3>
+
+@code {
+        
+    [Parameter]
+    public int Id { get; set; }
+
+    private EditRequest request;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        var req = await _mediator.Send(new GetRequestByIdQuery(Id));
+
+        request = _mapper.Map<EditRequest>(req);
+    }
+
+        private async Task EditEmployee()
+    {
+        await _mediator.Send(_mapper.Map<EditRequestCommand>(request));
+    }
+
+}

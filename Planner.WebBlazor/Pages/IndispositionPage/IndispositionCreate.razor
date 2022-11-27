@@ -1,0 +1,33 @@
+﻿@page "/indispositioncreate"
+@using Planner.Application.Service.Command
+@using Planner.WebBlazor.Models
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+<PageTitle>SPG - dodawanie niedyspozycyjności</PageTitle>
+
+<h3>Dodaj niedyspozycje</h3>
+
+
+<EditForm Model="@indisposition" OnValidSubmit="@InsertIndisposition">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+</EditForm>
+
+@code {
+    
+    private CreateIndisposition indisposition = new CreateIndisposition();
+
+
+    private async Task InsertIndisposition()
+    {
+       
+        await _mediator.Send(_mapper.Map<CreateIndispositionCommand>(indisposition));
+    
+    }
+
+
+}
+
+ 

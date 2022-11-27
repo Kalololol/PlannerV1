@@ -7,10 +7,6 @@ namespace Planner.Application.Service.Queries
     {
         public int Id { get; set; }
 
-        public GetEmployeeByIdQuery()
-        {
-
-        }
         public GetEmployeeByIdQuery(int id)
         {
             Id = id;

@@ -51,7 +51,6 @@
 
     private async Task EditEmployee()
     {
-        employee.Id = Id;
         await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
     }
 

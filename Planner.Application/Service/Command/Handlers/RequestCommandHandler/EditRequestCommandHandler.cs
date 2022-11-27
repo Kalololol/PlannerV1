@@ -25,6 +25,9 @@ namespace Planner.Application.Service.Command.Handlers.RequestCommandHandler
                 //req.Change = request.Change;
                 req.DayRequest = request.DayRequest;
             }
+
+            _requestRepository.Update(req);
+
             throw new NotImplementedException();
         }
     }

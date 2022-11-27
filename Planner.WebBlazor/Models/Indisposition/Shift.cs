@@ -4,6 +4,6 @@
     {
         All = 0,
         Day = 1,
-        Night = 2
+        Nigth = 2
     }
 }

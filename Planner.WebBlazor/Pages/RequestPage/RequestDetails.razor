@@ -1,0 +1,24 @@
+﻿@page "/requestdetails/{id:int}"
+@using Planner.Application.Service.Queries
+@inject MediatR.IMediator _mediator
+@inject AutoMapper.IMapper _mapper
+
+
+
+@code {
+    
+    [Parameter]
+    public int Id { get; set; }
+
+    private DetailsRequest employee;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+
+        var empl = await _mediator.Send(new GetRequestByIdQuery(Id));
+
+        employee = _mapper.Map<DetailsRequest>(empl);
+    }
+}
