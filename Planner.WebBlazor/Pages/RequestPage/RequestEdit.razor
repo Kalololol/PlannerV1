@@ -23,7 +23,7 @@
         request = _mapper.Map<EditRequest>(req);
     }
 
-        private async Task EditEmployee()
+        private async Task EditRequest()
     {
         await _mediator.Send(_mapper.Map<EditRequestCommand>(request));
     }

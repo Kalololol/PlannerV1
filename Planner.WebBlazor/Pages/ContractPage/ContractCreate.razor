@@ -11,7 +11,7 @@
      private CreateContract contract = new CreateContract();
 
 
-    private async Task InsertEmployee()
+    private async Task InsertContract()
     {
        
         await _mediator.Send(_mapper.Map<CreateContractCommand>(contract));
