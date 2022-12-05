@@ -81,7 +81,7 @@ namespace Planner.WebBlazor.Controller
                 if (employee == null)
                     return BadRequest();
 
-                var createdEmployee = await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
+                await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
 
                 return Ok("Dodano");
             }
@@ -100,7 +100,7 @@ namespace Planner.WebBlazor.Controller
             {
                 if (employee == null)
                     return BadRequest();
-                var editEmployee = await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
+                await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
 
                 return Ok();
             }
