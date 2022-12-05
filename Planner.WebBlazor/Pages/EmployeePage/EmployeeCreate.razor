@@ -50,8 +50,9 @@
     private async Task InsertEmployee()
     {
        
-        await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
-    
+            await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
+     
+
     }
 }
 

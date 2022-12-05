@@ -1,6 +1,7 @@
 ﻿@page "/employeeall"
 @inject MediatR.IMediator _mediator
 @inject AutoMapper.IMapper _mapper
+@inject IEmployeeService _employeeService;
 @using Planner.Application.ViewModels
 @using Planner.Application.Service.Queries
 
@@ -8,6 +9,14 @@
 
 <p><h3>Wszyscy pracownicy</h3> <a href="@("/employeecreate")">Dodaj pracownika</a></p>
 <p>
+
+    @if(employees == null)
+    {
+    <div>
+        <p>Ładowanie.... </p>
+        </div>
+    }
+    else {
     <table class="table">
         <tr>
             <th><a class="nav-link">Imię i Nazwisko</a></th>
@@ -26,21 +35,18 @@
     }
     <br />
     </table>
+    }
 </p>
 
 @code {
     private List<AllEmployee> employees = new List<AllEmployee>();
-
-
+ 
     protected override async Task OnInitializedAsync()
     {
-        var empl = await _mediator.Send(new GetEmployeesQuery());
-        foreach(var i in empl)
-        {
-            var employee = _mapper.Map<AllEmployee>(i);
-            employees.Add(employee);
-        }
+        await base.OnInitializedAsync();
+        employees = await _employeeService.GetAllEmployees();
 
-        
     }
+
+
 }

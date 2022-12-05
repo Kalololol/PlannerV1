@@ -7,6 +7,7 @@ using MediatR;
 using Planner.Application.Mediator;
 using System.Reflection;
 using Planner.Infrastructure.ContainerConfigurations.AutoMapper;
+using Planner.WebBlazor.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +20,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     );
 
 
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddMediatR(typeof(MediatorConfiguration).Assembly);
 
 builder.Services.AddSingleton(AutoMapperConfig.Initialize());
 builder.Services.AddSingleton(Planner.WebBlazor.AutoMapperConfig.Initialize());
-//builder.Services.AddAutoMapper(AutoMapperConfig.Initialize());
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7193/") });
+
+builder.Services.AddHttpClient<IEmployeeService, EmployeeService>
+    (client =>
+    {
+        client.BaseAddress = new Uri(("https://localhost:7193/"));
+    });
 
 var app = builder.Build();
 
@@ -46,5 +52,6 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.MapControllers();
 
 app.Run();

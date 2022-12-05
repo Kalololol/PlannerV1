@@ -12,6 +12,15 @@
 
         public EditDetailsEmployee(){}
 
-
+        public EditDetailsEmployee(int? id, string? name, string? surname, string? addressEmail, string? phoneNumber, string? licenseNumber, string? password)
+        {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            AddressEmail = addressEmail;
+            PhoneNumber = phoneNumber;
+            LicenseNumber = licenseNumber;
+            Password = password;
+        }
     }
 }

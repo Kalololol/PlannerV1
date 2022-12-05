@@ -1,4 +1,6 @@
 ﻿@page "/employeedetails/{id:int}"
+@inject IEmployeeService _employeeService;
+
 
 @inject AutoMapper.IMapper _mapper
 @inject MediatR.IMediator _mediator
@@ -39,16 +41,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    private EditDetailsEmployee employee;
+    private EditDetailsEmployee employee = new EditDetailsEmployee();
 
 
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
+       
+        var empl = await _employeeService.GetEmployeeById(Id);
 
-        var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
+
+        //var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
 
         employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
+    
 }
