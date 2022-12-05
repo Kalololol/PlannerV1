@@ -30,7 +30,7 @@ namespace Planner.WebBlazor.Service
         }
         public async Task<EditDetailsEmployee> EditEmployee(EditDetailsEmployee employee)
         {
-            return await httpClient.PostJsonAsync<EditDetailsEmployee>($"api/employee/updateEmployee", employee);
+            return await httpClient.PostJsonAsync<EditDetailsEmployee>($"api/employee/editEmployee", employee);
         }
     }
 }

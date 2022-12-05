@@ -93,7 +93,7 @@ namespace Planner.WebBlazor.Controller
         }
 
         [HttpPost]
-        [Route("updateEmployee")]
+        [Route("editEmployee")]
         public async Task<ActionResult<EditDetailsEmployee>> EditEmployee(EditDetailsEmployee employee)
         {
             try

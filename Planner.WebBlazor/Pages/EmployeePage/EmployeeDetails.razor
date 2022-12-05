@@ -2,12 +2,7 @@
 @page "/employeedetails/{id:int}"
 
 @inject IEmployeeService _employeeService;
-
-
-@inject AutoMapper.IMapper _mapper
-@inject MediatR.IMediator _mediator
 @using Planner.Application.ViewModels
-@using Planner.Application.Service.Queries
 
 
 <PageTitle>SPG - szczegóły pracownika</PageTitle>
@@ -45,17 +40,10 @@
 
     private EditDetailsEmployee employee = new EditDetailsEmployee();
 
-
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-       
         employee = await _employeeService.GetEmployeeById(Id);
-
-
-        //var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
-
-       // employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
     
