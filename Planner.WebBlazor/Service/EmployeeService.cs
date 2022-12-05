@@ -21,10 +21,16 @@ namespace Planner.WebBlazor.Service
 
         public async Task<EditDetailsEmployee> GetEmployeeById(int id)
         {
-            string send = "api/employee/getEmployeeById" + $"/{id}";
-            return await httpClient.GetJsonAsync<EditDetailsEmployee>(send);
+            return await httpClient.GetJsonAsync<EditDetailsEmployee>($"api/employee/getEmployeeById/{id}");
         }
 
-
+        public async Task<CreateEmployee> CreateEmployee(CreateEmployee employee)
+        {
+            return await httpClient.PostJsonAsync<CreateEmployee>($"api/employee/createEmployee", employee);
+        }
+        public async Task<EditDetailsEmployee> EditEmployee(EditDetailsEmployee employee)
+        {
+            return await httpClient.PostJsonAsync<EditDetailsEmployee>($"api/employee/updateEmployee", employee);
+        }
     }
 }

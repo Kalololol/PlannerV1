@@ -1,4 +1,6 @@
-﻿@page "/employeedetails/{id:int}"
+﻿@page "/employeedetails"
+@page "/employeedetails/{id:int}"
+
 @inject IEmployeeService _employeeService;
 
 
@@ -48,12 +50,12 @@
     {
         await base.OnInitializedAsync();
        
-        var empl = await _employeeService.GetEmployeeById(Id);
+        employee = await _employeeService.GetEmployeeById(Id);
 
 
         //var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
 
-        employee = _mapper.Map<EditDetailsEmployee>(empl);
+       // employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
     

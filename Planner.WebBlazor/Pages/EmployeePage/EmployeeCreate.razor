@@ -1,4 +1,6 @@
 ﻿@page "/employeecreate"
+@inject IEmployeeService _employeeService;
+
 @inject MediatR.IMediator _mediator
 @inject AutoMapper.IMapper _mapper
 @using Planner.Application.Service.Command
@@ -50,8 +52,8 @@
     private async Task InsertEmployee()
     {
        
-            await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
-     
+            //await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
+            await _employeeService.CreateEmployee(employee);
 
     }
 }

@@ -6,6 +6,8 @@ namespace Planner.WebBlazor.Service
     {
         Task<List<AllEmployee>> GetAllEmployees();
         Task<EditDetailsEmployee> GetEmployeeById(int id);
+        Task<CreateEmployee> CreateEmployee(CreateEmployee employee);
+        Task<EditDetailsEmployee> EditEmployee(EditDetailsEmployee employee);
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Planner.Application.Service.Command;
 using Planner.Application.Service.Queries;
 using Planner.WebBlazor.Models;
 
@@ -24,7 +25,7 @@ namespace Planner.WebBlazor.Controller
 
         [HttpGet]
         [Route("getEmployees")]
-        public async Task<ActionResult<IEnumerable<AllEmployee>>> GetAll()
+        public async Task<ActionResult<IList<AllEmployee>>> GetAll()
         {
 
             try
@@ -42,7 +43,7 @@ namespace Planner.WebBlazor.Controller
                     }
                     return Ok(result);
                 }
-                
+
             }
             catch (Exception)
             {
@@ -50,9 +51,9 @@ namespace Planner.WebBlazor.Controller
             }
         }
 
-        [HttpGet("{id}")]
-        [Route("getEmployeeById")]
-        public async Task<ActionResult<IEnumerable<AllEmployee>>> GetEmployeeById(int id)
+        [HttpGet("{id:int}")]
+        [Route("getEmployeeById/{id}")]
+        public async Task<ActionResult<AllEmployee>> GetEmployeeById(int id)
         {
             try
             {
@@ -65,17 +66,52 @@ namespace Planner.WebBlazor.Controller
                     return Ok(result);
                 }
 
-            }catch (Exception )
+            } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Brak użtkownika o podanym identyfikatorze");
-               // return BadRequest();
-
             }
+        }
+        [HttpPost]
+        [Route("createEmployee")]
+        public async Task<ActionResult<CreateEmployee>> CreateEmployee(CreateEmployee employee)
+        {
 
+            try
+            {
+                if (employee == null)
+                    return BadRequest();
 
-            // return Ok();
+                var createdEmployee = await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
+
+                return Ok("Dodano");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
         }
 
-        
+        [HttpPost]
+        [Route("updateEmployee")]
+        public async Task<ActionResult<EditDetailsEmployee>> EditEmployee(EditDetailsEmployee employee)
+        {
+            try
+            {
+                if (employee == null)
+                    return BadRequest();
+                var editEmployee = await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
+            
+        }
+
+
     }
 }

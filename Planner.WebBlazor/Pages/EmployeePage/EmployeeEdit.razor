@@ -1,4 +1,8 @@
-﻿@page "/employeeedit/{id:int}"
+﻿@page "/employeeedit"
+@page "/employeeedit/{id:int}"
+@inject IEmployeeService _employeeService;
+
+
 @using Planner.Application.Service.Queries
 @inject AutoMapper.IMapper _mapper
 @inject MediatR.IMediator _mediator
@@ -38,21 +42,27 @@
     [Parameter]
     public int Id { get; set; }
 
-    private EditDetailsEmployee employee;
+    private EditDetailsEmployee employee = new EditDetailsEmployee();
 
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
 
-        var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
+        // var empl = await _mediator.Send(new GetEmployeeByIdQuery(Id));
+        var empl = await _employeeService.GetEmployeeById(Id);
 
         employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
     private async Task EditEmployee()
     {
-        await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
+        // await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
+        await _employeeService.EditEmployee(employee);
+        var empl = await _employeeService.GetEmployeeById(Id);
+
+        employee = _mapper.Map<EditDetailsEmployee>(empl);
     }
 
+    
 
 }
