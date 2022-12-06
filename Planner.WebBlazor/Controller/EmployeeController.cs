@@ -109,8 +109,27 @@ namespace Planner.WebBlazor.Controller
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error creating new employee record");
             }
-            
         }
+
+        [HttpDelete("{id:int}")]
+        [Route("deleteEmployee")]
+        public async Task<ActionResult<EditDetailsEmployee>> DeleteEmployee(EditDetailsEmployee employee)
+        {
+            try
+            {
+                if (employee == null)
+                    return BadRequest();
+                await _mediator.Send(_mapper.Map<EditEmployeeCommand>(employee));
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
+        }
+
 
 
     }

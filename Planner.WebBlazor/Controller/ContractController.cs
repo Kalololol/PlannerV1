@@ -1,0 +1,84 @@
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Planner.Application.Service.Command;
+using Planner.Application.Service.Queries;
+using Planner.WebBlazor.Models;
+
+namespace Planner.WebBlazor.Controller
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ContractController : ControllerBase
+    {
+        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
+
+        public ContractController(IMapper mapper, IMediator mediator)
+        {
+            _mapper = mapper;
+            _mediator = mediator;
+        }
+
+        [HttpGet("{id:int}")]
+        [Route("getContractById/{id}")]
+        public async Task<ActionResult<DetailsContract>> GetContractById(int id)
+        {
+            try
+            {
+                var item = await _mediator.Send(new GetContractByIdQuery(id));
+
+                if (item == null) return NotFound();
+                else
+                {
+                    var result = _mapper.Map<DetailsContract>(item);
+                    return Ok(result);
+                }
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Brak użtkownika o podanym identyfikatorze");
+            }
+        }
+        [HttpPost]
+        [Route("createContract")]
+        public async Task<ActionResult<CreateContract>> CreateContract(CreateContract contract)
+        {
+            try
+            {
+                if (contract == null)
+                    return BadRequest();
+
+                await _mediator.Send(_mapper.Map<CreateContractCommand>(contract));
+
+                return Ok("Dodano");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
+        }
+        [HttpPost]
+        [Route("editContract")]
+        public async Task<ActionResult<EditContract>> EditContract(EditContract contract)
+        {
+            try
+            {
+                if (contract == null)
+                    return BadRequest();
+                await _mediator.Send(_mapper.Map<EditContractCommand>(contract));
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
+        }
+
+    }
+}
