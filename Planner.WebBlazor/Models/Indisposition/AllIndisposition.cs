@@ -8,7 +8,5 @@
         public int EmployeeId { get; set; }
 
         public AllIndisposition() {}
-
-
     }
 }
