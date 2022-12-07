@@ -25,6 +25,8 @@ namespace Planner.WebBlazor.Controller
 
         [HttpGet]
         [Route("getEmployees")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IList<AllEmployee>>> GetAll()
         {
 
@@ -53,6 +55,9 @@ namespace Planner.WebBlazor.Controller
 
         [HttpGet("{id:int}")]
         [Route("getEmployeeById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<ActionResult<AllEmployee>> GetEmployeeById(int id)
         {
             try
@@ -73,6 +78,8 @@ namespace Planner.WebBlazor.Controller
         }
         [HttpPost]
         [Route("createEmployee")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CreateEmployee>> CreateEmployee(CreateEmployee employee)
         {
 
@@ -83,6 +90,7 @@ namespace Planner.WebBlazor.Controller
 
                 await _mediator.Send(_mapper.Map<CreateEmployeeCommand>(employee));
 
+             //   return CreatedAtAction(nameof(GetEmployeeById),  employee);
                 return Ok("Dodano");
             }
             catch (Exception)
@@ -94,6 +102,9 @@ namespace Planner.WebBlazor.Controller
 
         [HttpPost]
         [Route("editEmployee")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<ActionResult<EditDetailsEmployee>> EditEmployee(EditDetailsEmployee employee)
         {
             try

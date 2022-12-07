@@ -23,6 +23,8 @@ namespace Planner.WebBlazor.Controller
 
         [HttpGet("{id:int}")]
         [Route("getContractById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<DetailsContract>> GetContractById(int id)
         {
             try
@@ -44,6 +46,8 @@ namespace Planner.WebBlazor.Controller
         }
         [HttpPost]
         [Route("createContract")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CreateContract>> CreateContract(CreateContract contract)
         {
             try
@@ -53,7 +57,9 @@ namespace Planner.WebBlazor.Controller
 
                 await _mediator.Send(_mapper.Map<CreateContractCommand>(contract));
 
-                return Ok("Dodano");
+              //  return Ok("Dodano");
+                return CreatedAtAction(nameof(GetContractById), new { id = contract.Id }, contract);
+
             }
             catch (Exception)
             {
@@ -63,6 +69,10 @@ namespace Planner.WebBlazor.Controller
         }
         [HttpPost]
         [Route("editContract")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+
         public async Task<ActionResult<EditContract>> EditContract(EditContract contract)
         {
             try
